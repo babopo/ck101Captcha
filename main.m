@@ -1,11 +1,14 @@
 %批处理
-% str = 'C:\Users\Limbo\Desktop\毕设\验证码\卡提诺\';      %读取路径
-% strAll = '*.png';%图像格式
-% path = strcat(str, strAll);
-% file = dir(path);
-% for x = 1 : 200 %length(file)
-%     filename = strcat(str, file(x).name);
-    I = imread('0.png');
+str = 'C:\Users\Limbo\Desktop\0-3730\';      %读取路径
+strAll = '*.png';%图像格式
+path = strcat(str, strAll);
+file = dir(path);
+for x = 1 : 200 %length(file)
+    filename = strcat(str, file(x).name);
+    getname = file(x).name(6:9); %获取标注信息
+    cnum = 0; %统计正确的个数
+    
+    I = imread(filename);
     
     %转为lab色彩空间
     lab = rgb2lab(I);
@@ -119,7 +122,7 @@
         xlswrite('feature.xls',fea,1,loc);
     end
     
-    %delete('*.jpg')%删除字符图片方便批量处理
+    delete('*.jpg')%删除字符图片方便批量处理
     
     %读取字符特征数据并识别
     
@@ -134,7 +137,7 @@
     labels = b2d(ydata');%样本标签
     %分类
     [m,n] = size(rawdata);
-    K1 = 3;%KNN中的K值
+    K1 = 4;%KNN中的K值
     res = '';
     for i = 1:m
         resultlabel = KNN(rawdata(i,:),samples,labels,K1);
@@ -142,10 +145,15 @@
         res = strcat(res,temp);
     end
     
-    disp(res)
+    %disp(res) %显示结果
+    
+    if strcmp(file(1).name(6:9),getname)
+        cnum = cnum + 1;
+    end
     
     fid=fopen('result.txt','a+');
     fprintf(fid,'%s\r\n',res);
     fclose(fid);
     
-%end
+end
+accur = cnum/x;
