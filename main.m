@@ -147,12 +147,11 @@ for x = 1 : 200 %length(file)
     
     %disp(res) %显示结果
     
-    if strcmp(file(1).name(6:9),getname)
-        cnum = cnum + 1;
-    end
+    %检测是否正确
+    cnum = cnum + strcmp(res,getname);
     
     fid=fopen('result.txt','a+');
-    fprintf(fid,'%s\r\n',res);
+    fprintf(fid,'%s\r\n',strcat(file(x).name(1:5),res)); %保存为标注相同的格式
     fclose(fid);
     
 end
