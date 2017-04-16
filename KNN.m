@@ -4,7 +4,7 @@ function resultLabel = KNN(inx,data,labels,k)
 
 [datarow , ~] = size(data);
 %计算测试数据与样本的欧氏距离
-diffMat = repmat(inx,[datarow,1]) - data ; 
+diffMat = repmat(inx,[datarow,1]) - data; 
 distanceMat = sqrt(sum(diffMat.^2,2)); 
 %对距离升序排序
 [B , IX] = sort(distanceMat,'ascend');
