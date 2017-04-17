@@ -96,6 +96,7 @@ file1 = dir('*.jpg');
 for i = 1:length(file1)
     filename = file1(i).name;
     I = imread(filename);
+    I = imbinarize(I); %将读取的jpg格式二值化，解决像素值改变的问题
     %提取4*4粗网格特征
     %统计每个网格黑点数目
     [m,n] = size(I);
