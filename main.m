@@ -3,7 +3,7 @@ str = 'C:\Users\Limbo\Desktop\0-3730\';      %读取路径
 strAll = '*.png';%图像格式
 path = strcat(str, strAll);
 file = dir(path);
-for x = 1 : 200 %length(file)
+for x = 1 : 5 %length(file)
     filename = strcat(str, file(x).name);
     getname = file(x).name(6:9); %获取标注信息
     cnum = 0; %统计正确的个数
@@ -130,10 +130,10 @@ for x = 1 : 200 %length(file)
     % % result = myNNet(rawdata');%%正确率极低
     
     %KNN
-    rawdata = nor(xlsread('feature.xls'));%归一化处理
+    rawdata = xlsread('feature.xls');%未归一化
     xlswrite('feature.xls',' ','Sheet1','A1:Q10');%清空工作表
     %train;%读取样本数据
-    samples = nor(xdata');%样本数据
+    samples = xdata';%样本数据 未归一化
     labels = b2d(ydata');%样本标签
     %分类
     [m,n] = size(rawdata);
@@ -151,8 +151,8 @@ for x = 1 : 200 %length(file)
     cnum = cnum + strcmp(res,getname);
     
     fid=fopen('result.txt','a+');
-    fprintf(fid,'%s\r\n',strcat(file(x).name(1:5),res)); %保存为标注相同的格式
+    fprintf(fid,'%s\r\n',strcat(file(x).name(6:9),'_',res)); %保存为标注相同的格式
     fclose(fid);
     
 end
-accur = cnum/x;
+accur = double(cnum)/double(x);

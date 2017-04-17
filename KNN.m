@@ -1,3 +1,4 @@
+%对于粗网格特征
 function resultLabel = KNN(inx,data,labels,k)
 %inx 为 输入测试数据，data为样本数据，labels为样本标签
 

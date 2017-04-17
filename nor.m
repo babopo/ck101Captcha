@@ -1,4 +1,6 @@
 %%数值归一化
+
+%有问题需要修改
 function newdataMat = nor(dataMat)
 len = size(dataMat,1);
 maxV = max(dataMat);
