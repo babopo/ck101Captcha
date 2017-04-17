@@ -10,7 +10,9 @@ distanceMat = sqrt(sum(diffMat.^2,2));
 %对距离升序排序
 [B , IX] = sort(distanceMat,'ascend');
 len = min(k,length(B));
-%mode选取k个最符合的样本数据中出现频率最高的
-resultLabel = mode(labels(IX(1:len)));%IX是对应距离在数组中的位置
-
+if B(len) > 25
+    resultLabel = 0;
+else
+    %mode选取k个最符合的样本数据中出现频率最高的
+    resultLabel = mode(labels(IX(1:len)));%IX是对应距离在数组中的位置    
 end
