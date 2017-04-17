@@ -1,12 +1,12 @@
 %批处理
-str = 'C:\Users\Limbo\Desktop\0-3730\';      %读取路径
+str = 'C:\Users\Limbo\Desktop\CAPTCHA\';      %读取路径
 strAll = '*.png';%图像格式
 path = strcat(str, strAll);
 file = dir(path);
-for x = 1 : 50 %length(file)
+cnum = 0; %统计正确的个数
+for x = 1 : length(file)
     filename = strcat(str, file(x).name);
     getname = file(x).name(6:9); %获取标注信息
-    cnum = 0; %统计正确的个数
     
     I = imread(filename);
     
@@ -152,7 +152,7 @@ for x = 1 : 50 %length(file)
     cnum = cnum + strcmp(res,getname);
     
     fid=fopen('result.txt','a+');
-    fprintf(fid,'%s\r\n',strcat(file(x).name(6:9),'_',res)); %保存为标注相同的格式
+    fprintf(fid,'%s\r\n',strcat(file(x).name(1:4),'_',res)); %保存为标注相同的格式
     fclose(fid);
     
 end
