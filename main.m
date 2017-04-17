@@ -39,7 +39,7 @@ for x = 1 : 50 %length(file)
         end
         %%
         %连通域去噪
-        LAB_BW = bwareaopen(LAB_BW,70);%删除面积小于90的连通域
+        LAB_BW = bwareaopen(LAB_BW,70,4);%删除面积小于70的连通域，4邻域
         %反回正常颜色
         for i = 1:m
             for j  = 1:n
@@ -77,7 +77,7 @@ for x = 1 : 50 %length(file)
         if ~isempty(width) && ~isempty(high)  %防止类图为空
             w = width(end) - width(1);
             h = high(end) - high(1);
-            if w < 25 && h < 28 && w > 8 && h >8 && Z<500 && Z>70 %像素点数和像素块的长宽是否符合要求
+            if w < 25 && h < 28 && w > 7 && h >8 && Z<500 && Z>70 %像素点数和像素块的长宽是否符合要求
                 %字符分割
                 c_row = h;
                 c_col = w;
